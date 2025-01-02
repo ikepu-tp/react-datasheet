@@ -1,0 +1,56 @@
+{
+  "name": "@ikepu-tp/react-datasheet",
+  "version": "0.0.0",
+  "description": "This library is a datasheet headlessUI depends on React.",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "style": "./dist/css/style.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier -w \"./src/**/*.{js,ts}\"",
+    "build": "yarn format && yarn build-js && yarn build-css",
+    "sb": "storybook dev -p 6006",
+    "build-js": "vite build && tsc",
+    "build-sb": "storybook build -o docs/ && touch ./docs/.nojekyll",
+    "build-scss": "sass --style=compressed src/scss/style.scss:dist/css/style.css",
+    "build-postcss": "# postcss css/*.css -r",
+    "build-css": "yarn build-scss && yarn build-postcss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikepu-tp/react-datasheetr.git"
+  },
+  "author": "ikepu-tp",
+  "license": "MIT",
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 | ^18.0.0 | ^19.0.0",
+    "react-dom": "^17.0.0 | ^18.0.0 | ^19.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^8.4.7",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-links": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/builder-vite": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@storybook/testing-library": "^0.2.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "prettier": "^3.4.2",
+    "sass": "^1.83.0",
+    "storybook": "^8.4.7",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

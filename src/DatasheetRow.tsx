@@ -26,7 +26,9 @@ export default function DatasheetRow({ component, row, rowData }: DatasheetRowPr
 	}
 
 	const ColumnHeaderWrapperComponent = theme.columnHeaderWrapperComponent || React.Fragment;
-	const ColumnHeader = <ColumnHeaderWrapperComponent>{columnHeaderComponent}</ColumnHeaderWrapperComponent>;
+	const ColumnHeader = columnHeaderComponent && (
+		<ColumnHeaderWrapperComponent>{columnHeaderComponent}</ColumnHeaderWrapperComponent>
+	);
 
 	return (
 		<Component>

@@ -1,14 +1,15 @@
 import React from 'react';
 import { DatasheetContextType } from './DatasheetContext';
+import themeByTheme from './DefaultTheme';
 import { DatasheetCellData, DatasheetData, DatasheetTheme } from './types';
 
-export type useDatashetProps = {
+export type useDatasheetProps = {
 	data: DatasheetData;
 	theme?: DatasheetTheme;
 };
-export default function useDatashet({ data, theme }: useDatashetProps): DatasheetContextType {
+export default function useDatashet({ data, theme }: useDatasheetProps): DatasheetContextType {
 	const [Data, setData] = React.useState<DatasheetData>(data);
-	const [Theme, setTheme] = React.useState<DatasheetTheme>(theme || {});
+	const [Theme, setTheme] = React.useState<DatasheetTheme>(themeByTheme(theme));
 
 	/**
 	 * Change the data

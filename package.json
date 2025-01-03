@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier -w \"./src/**/*.{js,ts}\"",
     "build": "yarn format && yarn build-js && yarn build-css && yarn build-sb",
-    "sb": "storybook dev -p 6006",
+    "sb": "vite --host 0.0.0.0 && storybook dev -p 6006",
     "build-js": "vite build && tsc",
     "build-sb": "storybook build -o docs/ && touch ./docs/.nojekyll",
     "build-scss": "sass --style=compressed src/scss/style.scss:dist/css/style.css",

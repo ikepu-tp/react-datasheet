@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatasheetCellData, DatasheetData, DatasheetTheme } from './types';
+import { DatasheetCellData, DatasheetData, DatasheetHeaders, DatasheetTheme } from './types';
 
 export type DatasheetContextType = {
 	data: DatasheetData;
@@ -8,6 +8,8 @@ export type DatasheetContextType = {
 	updateRowData: (row: number, value: DatasheetCellData[]) => void;
 	theme: DatasheetTheme;
 	changeTheme: (theme: DatasheetTheme) => void;
+	headers: DatasheetHeaders;
+	changeHeaders: (headers: DatasheetHeaders) => void;
 };
 const DatasheetContext = React.createContext<DatasheetContextType>({
 	data: [],
@@ -16,5 +18,7 @@ const DatasheetContext = React.createContext<DatasheetContextType>({
 	updateRowData: () => {},
 	theme: {},
 	changeTheme: () => {},
+	headers: {},
+	changeHeaders: () => {},
 });
 export default DatasheetContext;

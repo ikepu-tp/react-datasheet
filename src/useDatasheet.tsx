@@ -1,15 +1,17 @@
 import React from 'react';
 import { DatasheetContextType } from './DatasheetContext';
 import themeByTheme from './DefaultTheme';
-import { DatasheetCellData, DatasheetData, DatasheetTheme } from './types';
+import { DatasheetCellData, DatasheetData, DatasheetHeaders, DatasheetTheme } from './types';
 
 export type useDatasheetProps = {
 	data: DatasheetData;
 	theme?: DatasheetTheme;
+	headers?: DatasheetHeaders;
 };
-export default function useDatashet({ data, theme }: useDatasheetProps): DatasheetContextType {
+export default function useDatashet({ data, theme, headers }: useDatasheetProps): DatasheetContextType {
 	const [Data, setData] = React.useState<DatasheetData>(data);
 	const [Theme, setTheme] = React.useState<DatasheetTheme>(themeByTheme(theme));
+	const [Headers, setHeaders] = React.useState<DatasheetHeaders>(headers || {});
 
 	/**
 	 * Change the data
@@ -50,8 +52,18 @@ export default function useDatashet({ data, theme }: useDatasheetProps): Datashe
 	 * @param {DatasheetTheme} theme
 	 */
 	function changeTheme(theme: DatasheetTheme): void {
-		setTheme((prevTheme) => ({ ...{}, ...prevTheme, ...theme }));
+		setTheme({ ...{}, ...theme });
 	}
+
+	/**
+	 * Change the headers
+	 *
+	 * @param {DatasheetHeaders} headers
+	 */
+	function changeHeaders(headers: DatasheetHeaders): void {
+		setHeaders({ ...{}, ...headers });
+	}
+
 	return {
 		data: Data,
 		changeData,
@@ -59,5 +71,7 @@ export default function useDatashet({ data, theme }: useDatasheetProps): Datashe
 		updateRowData,
 		theme: Theme,
 		changeTheme,
+		headers: Headers,
+		changeHeaders,
 	};
 }

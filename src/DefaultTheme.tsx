@@ -5,18 +5,19 @@ export default function themeByTheme(theme: DatasheetTheme | undefined = undefin
 
 	switch (theme?.theme) {
 		case 'flex':
-			defaultTheme.sheetComponent = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>;
-			defaultTheme.rowComponent = ({ children }) => <div>{children}</div>;
+			defaultTheme.sheetComponent = ({ children }) => <div>{children}</div>;
+			defaultTheme.rowComponent = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>;
 			defaultTheme.cellComponent = ({ children }) => <div>{children}</div>;
+			defaultTheme.rowHeaderWrapperComponent = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>;
+			defaultTheme.columnHeaderWrapperComponent = ({ children }) => <div>{children}</div>;
 			break;
 		case 'table':
-			defaultTheme.sheetComponent = ({ children }) => (
-				<table>
-					<tbody>{children}</tbody>
-				</table>
-			);
+			defaultTheme.sheetComponent = ({ children }) => <table>{children}</table>;
+			defaultTheme.rowsWrapperComponent = ({ children }) => <tbody>{children}</tbody>;
 			defaultTheme.rowComponent = ({ children }) => <tr>{children}</tr>;
 			defaultTheme.cellComponent = ({ children }) => <td>{children}</td>;
+			defaultTheme.rowHeaderWrapperComponent = ({ children }) => <thead>{children}</thead>;
+			defaultTheme.columnHeaderWrapperComponent = ({ children }) => <th>{children}</th>;
 			break;
 		case undefined:
 		default:

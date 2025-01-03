@@ -3,6 +3,7 @@ import React from 'react';
 import { DatasheetData } from '../src/types';
 import DatasheetSheet from './../src/DatasheetSheet';
 import DatasheetProvider, { DatasheetProviderProps } from './../src/DatashetProvider';
+import './styles/datasheet.scss';
 
 const meta = {
 	title: 'Components/Datasheet',
@@ -44,10 +45,50 @@ export const Table: Story = {
 	},
 };
 
+export const FlexWithHeaders: Story = {
+	args: {
+		data: defaultData,
+		theme: {
+			theme: 'flex',
+		},
+		headers: {
+			rowHeaderComponent: (
+				<>
+					<div>Row Header 0</div>
+					<div>Row Header 1</div>
+					<div>Row Header 2</div>
+				</>
+			),
+			columnHeaderComponent: 'Colunm Header',
+		},
+	},
+};
+
+export const TableWithHeaders: Story = {
+	args: {
+		data: defaultData,
+		theme: {
+			theme: 'table',
+		},
+		headers: {
+			rowHeaderComponent: (
+				<>
+					<th>Row Header 0</th>
+					<th>Row Header 1</th>
+					<th>Row Header 2</th>
+				</>
+			),
+			columnHeaderComponent: 'Colunm Header',
+		},
+	},
+};
+
 function Datasheet(props: DatasheetProviderProps): React.ReactNode {
 	return (
-		<DatasheetProvider {...props}>
-			<DatasheetSheet />
-		</DatasheetProvider>
+		<div className="datasheet-story">
+			<DatasheetProvider {...props}>
+				<DatasheetSheet />
+			</DatasheetProvider>
+		</div>
 	);
 }

@@ -9,7 +9,11 @@ export type DatasheetRowProps = {
 	rowData?: DatasheetCellData[];
 };
 export default function DatasheetRow({ component, row, rowData }: DatasheetRowProps): React.ReactNode {
-	const { data, theme } = React.useContext<DatasheetContextType>(DatasheetContext);
+	const {
+		data,
+		theme,
+		headers: { columnHeaderComponent },
+	} = React.useContext<DatasheetContextType>(DatasheetContext);
 
 	const Component = component || theme.rowComponent || 'div';
 
@@ -21,8 +25,11 @@ export default function DatasheetRow({ component, row, rowData }: DatasheetRowPr
 		initData = data[row];
 	}
 
+	const ColumnHeaderWrapperComponent = theme.columnHeaderWrapperComponent || React.Fragment;
+
 	return (
 		<Component>
+			<ColumnHeaderWrapperComponent>{columnHeaderComponent}</ColumnHeaderWrapperComponent>
 			{initData.map((cellData: DatasheetCellData, index) => (
 				<DatasheetCell key={`row-${row}-cell-${index}`} row={row} column={index} cellData={cellData} />
 			))}

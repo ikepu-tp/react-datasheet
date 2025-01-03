@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { DatasheetData } from '../src/DatasheetContext';
-import DatasheetRow from './../src/DatasheetRow';
+import DatasheetSheet from './../src/DatasheetSheet';
 import DatasheetProvider from './../src/DatashetProvider';
 
 const meta = {
@@ -17,10 +17,17 @@ type Story = StoryObj<typeof meta>;
 export const Normal: Story = {
 	args: {},
 };
-function Datasheet({ data = [['data at row 0, column 0']] }: { data?: DatasheetData }): React.ReactNode {
+function Datasheet({
+	data = [
+		['data at row 0, column 0', 'data at row 0, column 1'],
+		['data at row 1, column 0', 'data at row 1, column 1'],
+	],
+}: {
+	data?: DatasheetData;
+}): React.ReactNode {
 	return (
 		<DatasheetProvider data={data}>
-			<DatasheetRow row={0} />
+			<DatasheetSheet />
 		</DatasheetProvider>
 	);
 }

@@ -3,19 +3,27 @@ import DatasheetCell from './DatasheetCell';
 import DatasheetContext, { DatasheetCellData, DatasheetContextType } from './DatasheetContext';
 
 export type DatasheetRowProps = {
-	component?: () => React.ReactNode;
+	component?: (props: { style?: React.CSSProperties }) => React.ReactNode;
+	style?: React.CSSProperties;
 	row: number;
+	rowData?: DatasheetCellData[];
 };
-export default function DatasheetRow({ component, row }: DatasheetRowProps): React.ReactNode {
-	const Component = component || React.Fragment;
+export default function DatasheetRow({ component, style, row, rowData }: DatasheetRowProps): React.ReactNode {
+	const Component = component || 'div';
 
 	const { data } = React.useContext<DatasheetContextType>(DatasheetContext);
 
-	if (!data) throw new Error(`No data at row: ${row}`);
+	let initData: DatasheetCellData[];
+	if (rowData) {
+		initData = rowData;
+	} else {
+		if (!data[row]) throw new Error(`No data at row: ${row}`);
+		initData = data[row];
+	}
 
 	return (
-		<Component>
-			{data[row].map((cellData: DatasheetCellData, index) => (
+		<Component style={style || { display: 'flex' }}>
+			{initData.map((cellData: DatasheetCellData, index) => (
 				<DatasheetCell key={`row-${row}-cell-${index}`} row={row} column={index} cellData={cellData} />
 			))}
 		</Component>

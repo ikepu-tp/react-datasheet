@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { DatasheetData } from '../src/DatasheetContext';
+import { DatasheetData } from '../src/types';
 import DatasheetSheet from './../src/DatasheetSheet';
 import DatasheetProvider from './../src/DatashetProvider';
 

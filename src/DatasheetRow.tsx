@@ -1,6 +1,7 @@
 import React from 'react';
 import DatasheetCell from './DatasheetCell';
-import DatasheetContext, { DatasheetCellData, DatasheetContextType } from './DatasheetContext';
+import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
+import { DatasheetCellData } from './types';
 
 export type DatasheetRowProps = {
 	component?: (props: { style?: React.CSSProperties }) => React.ReactNode;

@@ -1,5 +1,6 @@
 import React from 'react';
-import DatasheetContext, { DatasheetCellData, DatasheetContextType } from './DatasheetContext';
+import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
+import { DatasheetCellData } from './types';
 
 export type DatasheetCellProps = {
 	row: number;

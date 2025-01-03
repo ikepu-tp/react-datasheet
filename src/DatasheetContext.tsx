@@ -1,7 +1,6 @@
 import React from 'react';
+import { DatasheetCellData, DatasheetData } from './types';
 
-export type DatasheetCellData = string;
-export type DatasheetData = DatasheetCellData[][];
 export type DatasheetContextType = {
 	data: DatasheetData;
 	changeData: (data: DatasheetData) => void;

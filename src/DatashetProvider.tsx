@@ -1,5 +1,6 @@
 import React from 'react';
-import DatasheetContext, { DatasheetData } from './DatasheetContext';
+import DatasheetContext from './DatasheetContext';
+import { DatasheetData } from './types';
 import useDatashet, { useDatashetProps } from './useDatasheet';
 
 export type DatasheetProviderProps = {

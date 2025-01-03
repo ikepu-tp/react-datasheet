@@ -20,6 +20,17 @@
     "type": "git",
     "url": "git+https://github.com/ikepu-tp/react-datasheet.git"
   },
+  "bugs": {
+    "url": "https://github.com/ikepu-tp/react-datasheet/issues"
+  },
+  "homepage": "https://github.com/ikepu-tp/react-datasheet#readme",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
+    }
+  },
   "author": "ikepu-tp",
   "license": "MIT",
   "dependencies": {

@@ -9,7 +9,7 @@ export type DatasheetCellProps = {
 	cellData?: DatasheetCellData;
 };
 const DatasheetCell = React.memo(({ component, row, column, cellData }: DatasheetCellProps): React.ReactNode => {
-	const { data, theme } = React.useContext<DatasheetContextType>(DatasheetContext);
+	const { data, theme, updateCellData } = React.useContext<DatasheetContextType>(DatasheetContext);
 
 	const Component = component || theme.cellComponent || 'div';
 
@@ -22,7 +22,19 @@ const DatasheetCell = React.memo(({ component, row, column, cellData }: Datashee
 		initData = data[row][column];
 	}
 
-	return <Component>{initData}</Component>;
+	const DataRef = React.useRef<DatasheetCellData>(initData);
+
+	function handleInput(e: React.FormEvent<HTMLElement>): void {
+		DataRef.current = e.currentTarget.textContent;
+		console.log(`cell at row ${row}, column ${column} changed`);
+		updateCellData(row, column, DataRef.current);
+	}
+
+	return (
+		<Component onInput={handleInput} contentEditable>
+			{DataRef.current}
+		</Component>
+	);
 });
 
 export default DatasheetCell;

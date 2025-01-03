@@ -11,10 +11,14 @@ export type useDatasheetProps = {
 	wrapperComponent?: DatasheetWrapperComponent;
 };
 export default function useDatashet({ data, theme, headers, style }: useDatasheetProps): DatasheetContextType {
-	const [Data, setData] = React.useState<DatasheetData>(data);
+	const DataRef = React.useRef<DatasheetData>(data);
 	const [Theme, setTheme] = React.useState<DatasheetTheme>(themeByTheme(theme));
 	const [Headers, setHeaders] = React.useState<DatasheetHeaders>(headers || {});
 	const [Style, setStyle] = React.useState<string>(style || '');
+
+	function catchDataChange(): void {
+		console.log('Data changed', DataRef.current);
+	}
 
 	/**
 	 * Change the data
@@ -22,7 +26,8 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	 * @param {DatasheetData} data
 	 */
 	function changeData(data: DatasheetData): void {
-		setData(data);
+		DataRef.current = data;
+		catchDataChange();
 	}
 
 	/**
@@ -33,9 +38,9 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	 * @param {DatasheetCellData} value
 	 */
 	function updateCellData(row: number, column: number, value: DatasheetCellData): void {
-		if (!Data[row]) Data[row] = [];
-		Data[row][column] = value;
-		setData(Data.concat());
+		if (!DataRef.current[row]) DataRef.current[row] = [];
+		DataRef.current[row][column] = value;
+		catchDataChange();
 	}
 
 	/**
@@ -45,8 +50,8 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	 * @param {DatasheetCellData[]} value
 	 */
 	function updateRowData(row: number, value: DatasheetCellData[]): void {
-		Data[row] = value;
-		setData(Data.concat());
+		DataRef.current[row] = value;
+		catchDataChange();
 	}
 
 	/**
@@ -77,7 +82,7 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	}
 
 	return {
-		data: Data,
+		data: DataRef.current,
 		changeData,
 		updateCellData,
 		updateRowData,

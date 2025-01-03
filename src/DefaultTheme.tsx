@@ -5,19 +5,27 @@ export default function themeByTheme(theme: DatasheetTheme | undefined = undefin
 
 	switch (theme?.theme) {
 		case 'flex':
-			defaultTheme.sheetComponent = ({ children }) => <div>{children}</div>;
-			defaultTheme.rowComponent = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>;
-			defaultTheme.cellComponent = ({ children }) => <div>{children}</div>;
-			defaultTheme.rowHeaderWrapperComponent = ({ children }) => <div style={{ display: 'flex' }}>{children}</div>;
-			defaultTheme.columnHeaderWrapperComponent = ({ children }) => <div>{children}</div>;
+			defaultTheme.sheetComponent = ({ children, ...props }) => <div {...props}>{children}</div>;
+			defaultTheme.rowComponent = ({ children, ...props }) => (
+				<div style={{ display: 'flex' }} {...props}>
+					{children}
+				</div>
+			);
+			defaultTheme.cellComponent = ({ children, ...props }) => <div {...props}>{children}</div>;
+			defaultTheme.rowHeaderWrapperComponent = ({ children, ...props }) => (
+				<div style={{ display: 'flex' }} {...props}>
+					{children}
+				</div>
+			);
+			defaultTheme.columnHeaderWrapperComponent = ({ children, ...props }) => <div {...props}>{children}</div>;
 			break;
 		case 'table':
-			defaultTheme.sheetComponent = ({ children }) => <table>{children}</table>;
-			defaultTheme.rowsWrapperComponent = ({ children }) => <tbody>{children}</tbody>;
-			defaultTheme.rowComponent = ({ children }) => <tr>{children}</tr>;
-			defaultTheme.cellComponent = ({ children }) => <td>{children}</td>;
-			defaultTheme.rowHeaderWrapperComponent = ({ children }) => <thead>{children}</thead>;
-			defaultTheme.columnHeaderWrapperComponent = ({ children }) => <th>{children}</th>;
+			defaultTheme.sheetComponent = ({ children, ...props }) => <table {...props}>{children}</table>;
+			defaultTheme.rowsWrapperComponent = ({ children, ...props }) => <tbody {...props}>{children}</tbody>;
+			defaultTheme.rowComponent = ({ children, ...props }) => <tr {...props}>{children}</tr>;
+			defaultTheme.cellComponent = ({ children, ...props }) => <td {...props}>{children}</td>;
+			defaultTheme.rowHeaderWrapperComponent = ({ children, ...props }) => <thead {...props}>{children}</thead>;
+			defaultTheme.columnHeaderWrapperComponent = ({ children, ...props }) => <th {...props}>{children}</th>;
 			break;
 		case undefined:
 		default:

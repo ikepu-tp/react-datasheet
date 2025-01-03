@@ -1,6 +1,13 @@
 import React, { PropsWithChildren } from 'react';
 
-export type DatasheetCellData = string | null | undefined;
+export type DatasheetDifferenceData = {
+	oldValue: DatasheetCellData | undefined;
+	newValue: DatasheetCellData | undefined;
+	rowIndex: number;
+	columnIndex: number;
+};
+export type DatasheetUpdateDataHandler = (newData: DatasheetData, differences: DatasheetDifferenceData[]) => void;
+export type DatasheetCellData = string | number | boolean | null; // undefined を含めると，データ更新時の比較する際に誤作動を起こす
 export type DatasheetData = DatasheetCellData[][];
 export type DatasheetWrapperComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetSheetComponent = (props: PropsWithChildren) => React.ReactNode;

@@ -89,9 +89,12 @@ export const TableWithHeaders: Story = {
 };
 
 function Datasheet(props: DatasheetProviderProps): React.ReactNode {
+	function updateData(newData, differences): void {
+		console.log(newData, differences);
+	}
 	return (
 		<div className="datasheet-story">
-			<DatasheetProvider {...props}>
+			<DatasheetProvider updateData={updateData} {...props}>
 				<DatasheetSheet />
 			</DatasheetProvider>
 		</div>

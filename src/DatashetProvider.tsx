@@ -1,7 +1,7 @@
 import React from 'react';
 import DatasheetContext from './DatasheetContext';
 import { DatasheetData, DatasheetWrapperComponent } from './types';
-import useDatashet, { useDatasheetProps } from './useDatasheet';
+import useDatasheet, { useDatasheetProps } from './useDatasheet';
 
 export type DatasheetOnlyProviderProps = {
 	data: DatasheetData;
@@ -16,7 +16,7 @@ export default function DatasheetProvider({
 	wrapperComponent = defaultWrapperComponent,
 	...useDatasheetProps
 }: DatasheetProviderProps): React.ReactElement {
-	const datasheet = useDatashet(useDatasheetProps);
+	const datasheet = useDatasheet(useDatasheetProps);
 
 	const Wrapper = wrapperComponent;
 

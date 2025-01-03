@@ -1,7 +1,15 @@
 import React from 'react';
 import { DatasheetContextType } from './DatasheetContext';
 import themeByTheme from './DefaultTheme';
-import { DatasheetCellData, DatasheetData, DatasheetHeaders, DatasheetTheme, DatasheetWrapperComponent } from './types';
+import {
+	DatasheetCellData,
+	DatasheetData,
+	DatasheetDifferenceData,
+	DatasheetHeaders,
+	DatasheetTheme,
+	DatasheetUpdateDataHandler,
+	DatasheetWrapperComponent,
+} from './types';
 
 export type useDatasheetProps = {
 	data: DatasheetData;
@@ -9,15 +17,25 @@ export type useDatasheetProps = {
 	headers?: DatasheetHeaders;
 	style?: string;
 	wrapperComponent?: DatasheetWrapperComponent;
+	updateData?: DatasheetUpdateDataHandler;
 };
-export default function useDatashet({ data, theme, headers, style }: useDatasheetProps): DatasheetContextType {
+export default function useDatasheet({
+	data,
+	theme,
+	headers,
+	style,
+	updateData,
+}: useDatasheetProps): DatasheetContextType {
 	const DataRef = React.useRef<DatasheetData>(data);
 	const [Theme, setTheme] = React.useState<DatasheetTheme>(themeByTheme(theme));
 	const [Headers, setHeaders] = React.useState<DatasheetHeaders>(headers || {});
 	const [Style, setStyle] = React.useState<string>(style || '');
 
-	function catchDataChange(): void {
-		console.log('Data changed', DataRef.current);
+	function catchDataChange(
+		oldData: DatasheetData,
+		differences: DatasheetDifferenceData[] | undefined = undefined
+	): void {
+		if (updateData) updateData(DataRef.current, differences ? differences : findDifferences(oldData, DataRef.current));
 	}
 
 	/**
@@ -26,8 +44,9 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	 * @param {DatasheetData} data
 	 */
 	function changeData(data: DatasheetData): void {
+		const oldData = JSON.parse(JSON.stringify(DataRef.current));
 		DataRef.current = data;
-		catchDataChange();
+		catchDataChange(oldData);
 	}
 
 	/**
@@ -38,9 +57,17 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	 * @param {DatasheetCellData} value
 	 */
 	function updateCellData(row: number, column: number, value: DatasheetCellData): void {
+		const oldData = JSON.parse(JSON.stringify(DataRef.current));
 		if (!DataRef.current[row]) DataRef.current[row] = [];
 		DataRef.current[row][column] = value;
-		catchDataChange();
+		catchDataChange(oldData, [
+			{
+				oldValue: oldData[row] ? oldData[row][column] : undefined,
+				newValue: value,
+				rowIndex: row,
+				columnIndex: column,
+			},
+		]);
 	}
 
 	/**
@@ -50,8 +77,9 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 	 * @param {DatasheetCellData[]} value
 	 */
 	function updateRowData(row: number, value: DatasheetCellData[]): void {
+		const oldData = JSON.parse(JSON.stringify(DataRef.current));
 		DataRef.current[row] = value;
-		catchDataChange();
+		catchDataChange(oldData);
 	}
 
 	/**
@@ -93,4 +121,36 @@ export default function useDatashet({ data, theme, headers, style }: useDatashee
 		style: Style,
 		changeStyle,
 	};
+}
+
+function findDifferences(oldData: DatasheetData, newData: DatasheetData): DatasheetDifferenceData[] {
+	const differences: DatasheetDifferenceData[] = [];
+
+	const maxRows = Math.max(oldData.length, newData.length);
+
+	// Iterate through rows
+	Array.from({ length: maxRows }).forEach((_, rowIndex) => {
+		const oldRow = oldData[rowIndex] || []; // Use empty array if row doesn't exist
+		const newRow = newData[rowIndex] || []; // Use empty array if row doesn't exist
+
+		const maxColumns = Math.max(oldRow.length, newRow.length);
+
+		// Iterate through columns
+		Array.from({ length: maxColumns }).forEach((_, columnIndex) => {
+			const oldValue = oldRow[columnIndex];
+			const newValue = newRow[columnIndex];
+
+			// Compare values and record differences
+			if (oldValue !== newValue) {
+				differences.push({
+					oldValue: oldValue !== undefined ? oldValue : undefined,
+					newValue: newValue !== undefined ? newValue : undefined,
+					rowIndex: rowIndex,
+					columnIndex: columnIndex,
+				});
+			}
+		});
+	});
+
+	return differences;
 }

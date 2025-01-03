@@ -26,7 +26,6 @@ const DatasheetCell = React.memo(({ component, row, column, cellData }: Datashee
 
 	function handleInput(e: React.FormEvent<HTMLElement>): void {
 		DataRef.current = e.currentTarget.textContent;
-		console.log(`cell at row ${row}, column ${column} changed`);
 		updateCellData(row, column, DataRef.current);
 	}
 

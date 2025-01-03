@@ -2,12 +2,7 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
 	stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-	addons: [
-		'@storybook/addon-links',
-		'@storybook/addon-essentials',
-		'@storybook/addon-onboarding',
-		'@storybook/addon-interactions',
-	],
+	addons: ['@storybook/addon-essentials', '@storybook/addon-onboarding', '@storybook/addon-interactions'],
 	framework: {
 		name: '@storybook/react-vite',
 		options: {},
@@ -18,6 +13,5 @@ const config: StorybookConfig = {
 	core: {
 		builder: '@storybook/builder-vite',
 	},
-	typescript: { reactDocgen: false }, // 追加
 };
 export default config;

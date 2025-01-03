@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import DatasheetProvider from './../src/DatashetProvider';
 
 const meta = {
 	title: 'Components/Datasheet',
@@ -15,5 +16,5 @@ export const Normal: Story = {
 	args: {},
 };
 function Datasheet(): React.ReactNode {
-	return <>Datasheet</>;
+	return <DatasheetProvider></DatasheetProvider>;
 }

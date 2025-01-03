@@ -77,11 +77,11 @@ export const TableWithHeaders: Story = {
 		},
 		headers: {
 			rowHeaderComponent: (
-				<>
+				<tr>
 					<th>Row Header 0</th>
 					<th>Row Header 1</th>
 					<th>Row Header 2</th>
-				</>
+				</tr>
 			),
 			columnHeaderComponent: 'Colunm Header',
 		},

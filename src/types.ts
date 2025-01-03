@@ -17,6 +17,8 @@ export type DatasheetTheme = {
 	rowsWrapperComponent?: DatasheetRowsWrapperComponent;
 	rowHeaderWrapperComponent?: DatasheetRowHeaderComponent;
 	columnHeaderWrapperComponent?: DatasheetColumnHeaderComponent;
+	rowHeaderTopAndBottom?: boolean;
+	columnHeaderLeftAndRight?: boolean;
 };
 export type DatasheetHeaders = {
 	rowHeaderComponent?: React.ReactNode;

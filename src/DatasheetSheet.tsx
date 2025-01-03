@@ -16,15 +16,17 @@ export default function DatasheetSheet({ component }: DatasheetSheetProps): Reac
 	const Component = component || theme.sheetComponent || 'div';
 	const RowHeaderWrapperComponent = theme.rowHeaderWrapperComponent || React.Fragment;
 	const RowsWrapperComponent = theme.rowsWrapperComponent || React.Fragment;
+	const RowHeader = <RowHeaderWrapperComponent>{rowHeaderComponent}</RowHeaderWrapperComponent>;
 
 	return (
 		<Component>
-			<RowHeaderWrapperComponent>{rowHeaderComponent}</RowHeaderWrapperComponent>
+			{RowHeader}
 			<RowsWrapperComponent>
 				{data.map((rowData, rowIndex) => (
 					<DatasheetRow key={`row-${rowIndex}`} row={rowIndex} rowData={rowData} />
 				))}
 			</RowsWrapperComponent>
+			{theme.rowHeaderTopAndBottom && RowHeader}
 		</Component>
 	);
 }

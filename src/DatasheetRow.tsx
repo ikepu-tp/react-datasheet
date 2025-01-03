@@ -26,13 +26,15 @@ export default function DatasheetRow({ component, row, rowData }: DatasheetRowPr
 	}
 
 	const ColumnHeaderWrapperComponent = theme.columnHeaderWrapperComponent || React.Fragment;
+	const ColumnHeader = <ColumnHeaderWrapperComponent>{columnHeaderComponent}</ColumnHeaderWrapperComponent>;
 
 	return (
 		<Component>
-			<ColumnHeaderWrapperComponent>{columnHeaderComponent}</ColumnHeaderWrapperComponent>
+			{ColumnHeader}
 			{initData.map((cellData: DatasheetCellData, index) => (
 				<DatasheetCell key={`row-${row}-cell-${index}`} row={row} column={index} cellData={cellData} />
 			))}
+			{theme.columnHeaderLeftAndRight && ColumnHeader}
 		</Component>
 	);
 }

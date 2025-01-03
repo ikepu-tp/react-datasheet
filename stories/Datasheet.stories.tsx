@@ -50,6 +50,8 @@ export const FlexWithHeaders: Story = {
 		data: defaultData,
 		theme: {
 			theme: 'flex',
+			columnHeaderLeftAndRight: true,
+			rowHeaderTopAndBottom: true,
 		},
 		headers: {
 			rowHeaderComponent: (
@@ -69,6 +71,8 @@ export const TableWithHeaders: Story = {
 		data: defaultData,
 		theme: {
 			theme: 'table',
+			columnHeaderLeftAndRight: true,
+			rowHeaderTopAndBottom: true,
 		},
 		headers: {
 			rowHeaderComponent: (

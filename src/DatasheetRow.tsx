@@ -1,18 +1,18 @@
 import React from 'react';
 import DatasheetCell from './DatasheetCell';
 import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
-import { DatasheetCellData } from './types';
+import { DatasheetCellData, DatasheetRowComponent } from './types';
 
 export type DatasheetRowProps = {
-	component?: (props: { style?: React.CSSProperties }) => React.ReactNode;
+	component?: DatasheetRowComponent;
 	style?: React.CSSProperties;
 	row: number;
 	rowData?: DatasheetCellData[];
 };
 export default function DatasheetRow({ component, style, row, rowData }: DatasheetRowProps): React.ReactNode {
-	const Component = component || 'div';
+	const { data, theme } = React.useContext<DatasheetContextType>(DatasheetContext);
 
-	const { data } = React.useContext<DatasheetContextType>(DatasheetContext);
+	const Component = component || theme.rowComponent || 'div';
 
 	let initData: DatasheetCellData[];
 	if (rowData) {

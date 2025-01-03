@@ -1,14 +1,15 @@
 import React from 'react';
 import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
 import DatasheetRow from './DatasheetRow';
+import { DatasheetSheetComponent } from './types';
 
 export type DatasheetSheetProps = {
-	component?: () => React.ReactNode;
+	component?: DatasheetSheetComponent;
 };
 export default function DatasheetSheet({ component }: DatasheetSheetProps): React.ReactNode {
-	const Component = component || 'div';
+	const { data, theme } = React.useContext<DatasheetContextType>(DatasheetContext);
 
-	const { data } = React.useContext<DatasheetContextType>(DatasheetContext);
+	const Component = component || theme.sheetComponent || 'div';
 
 	return (
 		<Component>

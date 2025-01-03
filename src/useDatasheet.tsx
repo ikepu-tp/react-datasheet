@@ -1,12 +1,14 @@
 import React from 'react';
 import { DatasheetContextType } from './DatasheetContext';
-import { DatasheetCellData, DatasheetData } from './types';
+import { DatasheetCellData, DatasheetData, DatasheetTheme } from './types';
 
 export type useDatashetProps = {
 	data: DatasheetData;
+	theme?: DatasheetTheme;
 };
-export default function useDatashet({ data }: useDatashetProps): DatasheetContextType {
+export default function useDatashet({ data, theme }: useDatashetProps): DatasheetContextType {
 	const [Data, setData] = React.useState<DatasheetData>(data);
+	const [Theme, setTheme] = React.useState<DatasheetTheme>(theme || {});
 
 	/**
 	 * Change the data
@@ -40,10 +42,21 @@ export default function useDatashet({ data }: useDatashetProps): DatasheetContex
 		Data[row] = value;
 		setData(Data.concat());
 	}
+
+	/**
+	 * Change the theme
+	 *
+	 * @param {DatasheetTheme} theme
+	 */
+	function changeTheme(theme: DatasheetTheme): void {
+		setTheme((prevTheme) => ({ ...{}, ...prevTheme, ...theme }));
+	}
 	return {
 		data: Data,
 		changeData,
 		updateCellData,
 		updateRowData,
+		theme: Theme,
+		changeTheme,
 	};
 }

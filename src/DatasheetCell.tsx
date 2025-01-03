@@ -1,14 +1,17 @@
 import React from 'react';
 import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
-import { DatasheetCellData } from './types';
+import { DatasheetCellComponent, DatasheetCellData } from './types';
 
 export type DatasheetCellProps = {
+	component?: DatasheetCellComponent;
 	row: number;
 	column: number;
 	cellData?: DatasheetCellData;
 };
-export default function DatasheetCell({ row, column, cellData }: DatasheetCellProps): React.ReactNode {
-	const { data } = React.useContext<DatasheetContextType>(DatasheetContext);
+export default function DatasheetCell({ component, row, column, cellData }: DatasheetCellProps): React.ReactNode {
+	const { data, theme } = React.useContext<DatasheetContextType>(DatasheetContext);
+
+	const Component = component || theme.cellComponent || 'div';
 
 	let initData: DatasheetCellData;
 	if (cellData) {
@@ -18,5 +21,5 @@ export default function DatasheetCell({ row, column, cellData }: DatasheetCellPr
 		initData = data[row][column];
 	}
 
-	return <div>{initData}</div>;
+	return <Component>{initData}</Component>;
 }

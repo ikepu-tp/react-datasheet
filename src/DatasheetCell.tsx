@@ -1,12 +1,21 @@
 import React from 'react';
-import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
+import DatasheetContext, { DatasheetCellData, DatasheetContextType } from './DatasheetContext';
 
 export type DatasheetCellProps = {
 	row: number;
 	column: number;
+	cellData?: DatasheetCellData;
 };
-export default function DatasheetCell({ row, column }: DatasheetCellProps): React.ReactNode {
+export default function DatasheetCell({ row, column, cellData }: DatasheetCellProps): React.ReactNode {
 	const { data } = React.useContext<DatasheetContextType>(DatasheetContext);
-	if (!data[row] || !data[row][column]) throw new Error(`No data at row: ${row}, column: ${column}`);
-	return <div>{data[row][column]}</div>;
+
+	let initData: DatasheetCellData;
+	if (cellData) {
+		initData = cellData;
+	} else {
+		if (!data[row] || !data[row][column]) throw new Error(`No data at row: ${row}, column: ${column}`);
+		initData = data[row][column];
+	}
+
+	return <div>{initData}</div>;
 }

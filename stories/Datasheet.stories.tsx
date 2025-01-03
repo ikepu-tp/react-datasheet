@@ -20,7 +20,7 @@ export const Normal: Story = {
 function Datasheet({ data = [['data at row 0, column 0']] }: { data?: DatasheetData }): React.ReactNode {
 	return (
 		<DatasheetProvider data={data}>
-			<DatasheetRow />
+			<DatasheetRow row={0} />
 		</DatasheetProvider>
 	);
 }

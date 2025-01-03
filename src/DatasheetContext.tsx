@@ -1,14 +1,17 @@
 import React from 'react';
 
-export type DatasheetData = string[][];
+export type DatasheetCellData = string;
+export type DatasheetData = DatasheetCellData[][];
 export type DatasheetContextType = {
 	data: DatasheetData;
 	changeData: (data: DatasheetData) => void;
-	updateData: (row: number, column: number, value: string) => void;
+	updateCellData: (row: number, column: number, value: DatasheetCellData) => void;
+	updateRowData: (row: number, value: DatasheetCellData[]) => void;
 };
 const DatasheetContext = React.createContext<DatasheetContextType>({
 	data: [],
 	changeData: () => {},
-	updateData: () => {},
+	updateCellData: () => {},
+	updateRowData: () => {},
 });
 export default DatasheetContext;

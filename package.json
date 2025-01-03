@@ -2,9 +2,9 @@
   "name": "@ikepu-tp/react-datasheet",
   "version": "0.0.0",
   "description": "This library is a datasheet headlessUI depends on React.",
+  "types": "./dist/esm/index.d.ts",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
   "style": "./dist/css/style.css",
   "scripts": {
     "format": "prettier -w \"./src/**/*.{js,ts}\"",
@@ -24,13 +24,6 @@
     "url": "https://github.com/ikepu-tp/react-datasheet/issues"
   },
   "homepage": "https://github.com/ikepu-tp/react-datasheet#readme",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
-      "types": "./dist/esm/index.d.ts"
-    }
-  },
   "author": "ikepu-tp",
   "license": "MIT",
   "dependencies": {

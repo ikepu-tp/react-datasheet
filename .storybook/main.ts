@@ -11,7 +11,12 @@ const config: StorybookConfig = {
 		autodocs: 'tag',
 	},
 	core: {
-		builder: '@storybook/builder-vite',
+		builder: {
+			name: '@storybook/builder-vite',
+			options: {
+				viteConfigPath: './vite.config.js',
+			},
+		},
 	},
 };
 export default config;

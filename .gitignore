@@ -1,8 +1,4 @@
-dist
 node_modules
 example
-types
-cjs
-esm
 public
 .cache

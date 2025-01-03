@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { DatasheetData } from '../src/types';
+import DatasheetProvider, { DatasheetProviderProps } from './../src/DatasheetProvider';
 import DatasheetSheet from './../src/DatasheetSheet';
-import DatasheetProvider, { DatasheetProviderProps } from './../src/DatashetProvider';
 import './styles/datasheet.scss';
 
 const meta = {

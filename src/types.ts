@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 
 export type DatasheetCellData = string;
 export type DatasheetData = DatasheetCellData[][];
+export type DatasheetWrapperComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetSheetComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetRowsWrapperComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetRowComponent = (props: PropsWithChildren) => React.ReactNode;

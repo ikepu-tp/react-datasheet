@@ -10,6 +10,8 @@ export type DatasheetContextType = {
 	changeTheme: (theme: DatasheetTheme) => void;
 	headers: DatasheetHeaders;
 	changeHeaders: (headers: DatasheetHeaders) => void;
+	style: string;
+	changeStyle: (style: string) => void;
 };
 const DatasheetContext = React.createContext<DatasheetContextType>({
 	data: [],
@@ -20,5 +22,7 @@ const DatasheetContext = React.createContext<DatasheetContextType>({
 	changeTheme: () => {},
 	headers: {},
 	changeHeaders: () => {},
+	style: '',
+	changeStyle: () => {},
 });
 export default DatasheetContext;

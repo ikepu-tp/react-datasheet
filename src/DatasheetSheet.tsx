@@ -16,7 +16,7 @@ export default function DatasheetSheet({ component }: DatasheetSheetProps): Reac
 	const Component = component || theme.sheetComponent || 'div';
 	const RowHeaderWrapperComponent = theme.rowHeaderWrapperComponent || React.Fragment;
 	const RowsWrapperComponent = theme.rowsWrapperComponent || React.Fragment;
-	const RowHeader = <RowHeaderWrapperComponent>{rowHeaderComponent}</RowHeaderWrapperComponent>;
+	const RowHeader = rowHeaderComponent && <RowHeaderWrapperComponent>{rowHeaderComponent}</RowHeaderWrapperComponent>;
 
 	return (
 		<Component>

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import { DatasheetData } from '../src/DatasheetContext';
 import DatasheetCell from './../src/DatasheetCell';
 import DatasheetProvider from './../src/DatashetProvider';
 
@@ -14,12 +15,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Normal: Story = {
-	args: {},
+	args: { data: [['data at row 0, column 0']] },
 };
-function Datasheet(): React.ReactNode {
+function Datasheet({ data }: { data: DatasheetData }): React.ReactNode {
 	return (
-		<DatasheetProvider>
-			<DatasheetCell />
+		<DatasheetProvider data={data}>
+			<DatasheetCell row={0} column={0} />
 		</DatasheetProvider>
 	);
 }

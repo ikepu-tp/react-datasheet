@@ -12,7 +12,6 @@ export default defineConfig({
 				DatasheetRow: resolve(__dirname, 'src/DatasheetRow.tsx'),
 				DatasheetSheet: resolve(__dirname, 'src/DatasheetSheet.tsx'),
 				DatasheetProvider: resolve(__dirname, 'src/DatasheetProvider.tsx'),
-				DatasheetProvider: resolve(__dirname, 'src/DatasheetProvider.tsx'),
 				DefaultTheme: resolve(__dirname, 'src/DefaultTheme.tsx'),
 				useDatasheet: resolve(__dirname, 'src/useDatasheet.tsx'),
 			},

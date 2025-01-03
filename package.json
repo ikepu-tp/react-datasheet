@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ikepu-tp/react-datasheetr.git"
+    "url": "git+https://github.com/ikepu-tp/react-datasheet.git"
   },
   "author": "ikepu-tp",
   "license": "MIT",

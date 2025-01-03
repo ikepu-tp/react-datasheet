@@ -6,7 +6,7 @@ import { DatasheetSheetComponent } from './types';
 export type DatasheetSheetProps = {
 	component?: DatasheetSheetComponent;
 };
-export default function DatasheetSheet({ component }: DatasheetSheetProps): React.ReactNode {
+const DatasheetSheet = React.memo(({ component }: DatasheetSheetProps): React.ReactNode => {
 	const {
 		data,
 		theme,
@@ -29,4 +29,6 @@ export default function DatasheetSheet({ component }: DatasheetSheetProps): Reac
 			{theme.rowHeaderTopAndBottom && RowHeader}
 		</Component>
 	);
-}
+});
+
+export default DatasheetSheet;

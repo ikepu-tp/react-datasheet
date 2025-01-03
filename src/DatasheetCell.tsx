@@ -8,7 +8,7 @@ export type DatasheetCellProps = {
 	column: number;
 	cellData?: DatasheetCellData;
 };
-export default function DatasheetCell({ component, row, column, cellData }: DatasheetCellProps): React.ReactNode {
+const DatasheetCell = React.memo(({ component, row, column, cellData }: DatasheetCellProps): React.ReactNode => {
 	const { data, theme } = React.useContext<DatasheetContextType>(DatasheetContext);
 
 	const Component = component || theme.cellComponent || 'div';
@@ -17,9 +17,12 @@ export default function DatasheetCell({ component, row, column, cellData }: Data
 	if (cellData) {
 		initData = cellData;
 	} else {
-		if (!data[row] || !data[row][column]) throw new Error(`No data at row: ${row}, column: ${column}`);
+		if (!data[row] || (!data[row][column] && data[row][column] !== undefined && data[row][column] !== null))
+			throw new Error(`No data at row: ${row}, column: ${column}`);
 		initData = data[row][column];
 	}
 
 	return <Component>{initData}</Component>;
-}
+});
+
+export default DatasheetCell;

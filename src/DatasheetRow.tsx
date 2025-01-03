@@ -8,7 +8,7 @@ export type DatasheetRowProps = {
 	row: number;
 	rowData?: DatasheetCellData[];
 };
-export default function DatasheetRow({ component, row, rowData }: DatasheetRowProps): React.ReactNode {
+const DatasheetRow = React.memo(({ component, row, rowData }: DatasheetRowProps): React.ReactNode => {
 	const {
 		data,
 		theme,
@@ -39,4 +39,6 @@ export default function DatasheetRow({ component, row, rowData }: DatasheetRowPr
 			{theme.columnHeaderLeftAndRight && ColumnHeader}
 		</Component>
 	);
-}
+});
+
+export default DatasheetRow;

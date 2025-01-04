@@ -14,7 +14,7 @@ export type DatasheetSheetComponent = (props: PropsWithChildren) => React.ReactN
 export type DatasheetRowsWrapperComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetRowComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetRowHeaderComponent = (props: PropsWithChildren) => React.ReactNode;
-export type DatasheetCellComponent = (props: PropsWithChildren) => React.ReactNode;
+export type DatasheetCellComponent = React.ForwardRefExoticComponent<PropsWithChildren>;
 export type DatasheetColumnHeaderComponent = (props: PropsWithChildren) => React.ReactNode;
 export type DatasheetThemeTheme = 'table' | 'flex';
 export type DatasheetTheme = {

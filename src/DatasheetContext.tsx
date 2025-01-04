@@ -12,6 +12,8 @@ export type DatasheetContextType = {
 	changeHeaders: (headers: DatasheetHeaders) => void;
 	style: string;
 	changeStyle: (style: string) => void;
+	contentEditable: boolean;
+	chnageContentEditable: (contentEditable: boolean) => void;
 };
 const DatasheetContext = React.createContext<DatasheetContextType>({
 	data: [],
@@ -24,5 +26,7 @@ const DatasheetContext = React.createContext<DatasheetContextType>({
 	changeHeaders: () => {},
 	style: '',
 	changeStyle: () => {},
+	contentEditable: false,
+	chnageContentEditable: () => {},
 });
 export default DatasheetContext;

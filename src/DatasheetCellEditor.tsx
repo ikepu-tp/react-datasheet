@@ -14,7 +14,7 @@ const DatasheetCellEditor = React.memo(({ row, column, cellData }: DatasheetCell
 	if (cellData) {
 		initData = cellData;
 	} else {
-		if (!data[row] || (!data[row][column] && data[row][column] !== undefined && data[row][column] !== null))
+		if (!data[row] || (!data[row][column] && data[row][column] !== '' && data[row][column] !== null))
 			throw new Error(`No data at row: ${row}, column: ${column}`);
 		initData = data[row][column];
 	}

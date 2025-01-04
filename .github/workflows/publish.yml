@@ -61,6 +61,6 @@ jobs:
             https://api.github.com/repos/${GITHUB_REPOSITORY}/releases
 
       - name: publish
-        run: npm publish
+        run: npm publish --access=public ./
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

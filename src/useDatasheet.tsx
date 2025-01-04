@@ -28,6 +28,7 @@ export default function useDatasheet({
 	updateData,
 }: useDatasheetProps): DatasheetContextType {
 	const DataRef = React.useRef<DatasheetData>(data);
+	const [Data, setData] = React.useState<DatasheetData>(data);
 	const [Theme, setTheme] = React.useState<DatasheetTheme>(themeByTheme(theme));
 	const [Headers, setHeaders] = React.useState<DatasheetHeaders>(headers || {});
 	const [Style, setStyle] = React.useState<string>(style || '');
@@ -50,6 +51,20 @@ export default function useDatasheet({
 	function changeData(data: DatasheetData): void {
 		const oldData = JSON.parse(JSON.stringify(DataRef.current));
 		DataRef.current = data;
+		setData([...[], ...DataRef.current]);
+		catchDataChange(oldData);
+	}
+
+	/**
+	 * Update the data at the specified row
+	 *
+	 * @param {number} row
+	 * @param {DatasheetCellData[]} value
+	 */
+	function updateRowData(row: number, value: DatasheetCellData[]): void {
+		const oldData = JSON.parse(JSON.stringify(DataRef.current));
+		DataRef.current[row] = value;
+		setData([...[], ...DataRef.current]);
 		catchDataChange(oldData);
 	}
 
@@ -72,18 +87,6 @@ export default function useDatasheet({
 				columnIndex: column,
 			},
 		]);
-	}
-
-	/**
-	 * Update the data at the specified row
-	 *
-	 * @param {number} row
-	 * @param {DatasheetCellData[]} value
-	 */
-	function updateRowData(row: number, value: DatasheetCellData[]): void {
-		const oldData = JSON.parse(JSON.stringify(DataRef.current));
-		DataRef.current[row] = value;
-		catchDataChange(oldData);
 	}
 
 	/**
@@ -151,7 +154,7 @@ export default function useDatasheet({
 	}
 
 	return {
-		data: DataRef.current,
+		data: Data,
 		changeData,
 		updateCellData,
 		updateRowData,

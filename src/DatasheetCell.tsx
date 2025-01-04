@@ -1,4 +1,5 @@
 import React from 'react';
+import { getPasteData } from '.';
 import DatasheetCellEditor, { DatasheetCellEditorProps } from './DatasheetCellEditor';
 import DatasheetContext, { DatasheetContextType } from './DatasheetContext';
 import { DatasheetCellComponent } from './types';
@@ -8,7 +9,7 @@ export type DatasheetCellProps = {
 };
 const DatasheetCell = React.memo(
 	({ component, row, column, cellData }: DatasheetCellProps & DatasheetCellEditorProps): React.ReactNode => {
-		const { theme, selectedRange, changeSelectedRange, contentEditable } =
+		const { data, updateRowData, theme, selectedRange, changeSelectedRange, contentEditable } =
 			React.useContext<DatasheetContextType>(DatasheetContext);
 
 		const ComponentRef = React.useRef<HTMLDivElement | HTMLTableCellElement>(null);
@@ -37,17 +38,31 @@ const DatasheetCell = React.memo(
 				endColumn: column,
 			});
 		});
+		const PasteHandler = React.useRef<EventListenerOrEventListenerObject>((e: Event) => {
+			e.preventDefault();
+			e.stopPropagation();
+			const pasteData = getPasteData(e as ClipboardEvent);
+			pasteData.forEach(async (line, rowIndex) => {
+				if (!data[row + rowIndex]) return;
+				line.forEach((cell, columnIndex) => {
+					if (!data[row + rowIndex][column + columnIndex]) return;
+					data[row + rowIndex][column + columnIndex] = cell;
+				});
+				updateRowData(row + rowIndex, data[row + rowIndex]);
+			});
+		});
 
 		React.useEffect(() => {
 			if (!ComponentRef.current) return;
 			if (contentEditable) {
 				removeSelected();
-				console.log('remove');
+				ComponentRef.current.addEventListener('paste', PasteHandler.current);
 				ComponentRef.current.removeEventListener('mousedown', MousedownHandler.current);
 				ComponentRef.current.removeEventListener('mousemove', MousemoveHandler.current);
 				ComponentRef.current.removeEventListener('mouseup', MouseupHandler.current);
 				return;
 			}
+			ComponentRef.current.removeEventListener('paste', PasteHandler.current);
 			ComponentRef.current.addEventListener('mousedown', MousedownHandler.current);
 			ComponentRef.current.addEventListener('mousemove', MousemoveHandler.current);
 			ComponentRef.current.addEventListener('mouseup', MouseupHandler.current);

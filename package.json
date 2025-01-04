@@ -10,8 +10,8 @@
     "format": "prettier -w \"./src/**/*.{js,ts}\"",
     "build": "yarn format && yarn build-js && yarn build-css && yarn build-sb",
     "sb": "storybook dev -p 6006",
-    "build-js": "vite build && tsc",
-    "build-sb": "storybook build -o docs/ && touch ./docs/.nojekyll",
+    "build-js": "yarn format && yarn build-css && vite build && tsc",
+    "build-sb": "yarn format && storybook build -o docs/ && touch ./docs/.nojekyll",
     "build-scss": "sass --style=compressed src/styles/style.scss:dist/css/style.css",
     "build-postcss": "# postcss css/*.css -r",
     "build-css": "yarn build-scss && yarn build-postcss"

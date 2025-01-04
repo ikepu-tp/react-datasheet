@@ -94,7 +94,7 @@ export const TableWithHeaders: Story = {
 
 function Datasheet(props: DatasheetProviderProps): React.ReactNode {
 	function updateData(newData, differences): void {
-		console.log(newData, differences);
+		console.log('data is updated', 'newData', newData, 'differences', differences);
 	}
 	return (
 		<div className="datasheet-story">

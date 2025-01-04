@@ -1,4 +1,18 @@
+.ikpeuTp-reactDatasheet__datasheetWrapper {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
 .ikpeuTp-reactDatasheet__cellEditor {
 	margin: 0;
 	padding: 0;
+	border: 0;
+	outline: none;
+}
+.ikpeuTp-reactDatasheet__cell-selected {
+	background-color: #c8ec98 !important;
+}
+.ikpeuTp-reactDatasheet__cell-onlySelected {
+	border-color: #0fc227 !important;
+	border-width: 2px !important;
 }

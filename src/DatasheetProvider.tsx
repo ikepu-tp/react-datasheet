@@ -1,5 +1,6 @@
 import React from 'react';
 import DatasheetContext from './DatasheetContext';
+import './styles/style.scss';
 import { DatasheetData, DatasheetWrapperComponent } from './types';
 import useDatasheet, { useDatasheetProps } from './useDatasheet';
 
@@ -21,7 +22,7 @@ export default function DatasheetProvider({
 	const Wrapper = wrapperComponent;
 
 	return (
-		<DatasheetContext.Provider value={datasheet}>
+		<DatasheetContext.Provider value={{ ...useDatasheetProps, ...datasheet }}>
 			{datasheet.style && <style>{datasheet.style}</style>}
 			<Wrapper>{children}</Wrapper>
 		</DatasheetContext.Provider>

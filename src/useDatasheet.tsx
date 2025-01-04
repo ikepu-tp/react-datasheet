@@ -8,7 +8,6 @@ import {
 	DatasheetHeaders,
 	DatasheetTheme,
 	DatasheetUpdateDataHandler,
-	DatasheetWrapperComponent,
 } from './types';
 
 export type useDatasheetProps = {
@@ -16,20 +15,22 @@ export type useDatasheetProps = {
 	theme?: DatasheetTheme;
 	headers?: DatasheetHeaders;
 	style?: string;
-	wrapperComponent?: DatasheetWrapperComponent;
 	updateData?: DatasheetUpdateDataHandler;
+	contentEditable?: boolean;
 };
 export default function useDatasheet({
 	data,
 	theme,
 	headers,
 	style,
+	contentEditable,
 	updateData,
 }: useDatasheetProps): DatasheetContextType {
 	const DataRef = React.useRef<DatasheetData>(data);
 	const [Theme, setTheme] = React.useState<DatasheetTheme>(themeByTheme(theme));
 	const [Headers, setHeaders] = React.useState<DatasheetHeaders>(headers || {});
 	const [Style, setStyle] = React.useState<string>(style || '');
+	const [ContentEditable, setContentEditable] = React.useState<boolean>(contentEditable || false);
 
 	function catchDataChange(
 		oldData: DatasheetData,
@@ -109,6 +110,15 @@ export default function useDatasheet({
 		setStyle(style);
 	}
 
+	/**
+	 * Change the contentEditable
+	 *
+	 * @param {boolean} contentEditable
+	 */
+	function changeContentEditable(contentEditable: boolean): void {
+		setContentEditable(contentEditable);
+	}
+
 	return {
 		data: DataRef.current,
 		changeData,
@@ -120,6 +130,8 @@ export default function useDatasheet({
 		changeHeaders,
 		style: Style,
 		changeStyle,
+		contentEditable: ContentEditable,
+		chnageContentEditable: changeContentEditable,
 	};
 }
 

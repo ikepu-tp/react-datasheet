@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
+import DatasheetContext from '../src/DatasheetContext';
 import { DatasheetData } from '../src/types';
 import DatasheetProvider, { DatasheetProviderProps } from './../src/DatasheetProvider';
 import DatasheetSheet from './../src/DatasheetSheet';
@@ -27,6 +28,7 @@ export const Normal: Story = {
 			theme: 'table',
 		},
 		style: '.ikpeuTp-reactDatasheet__wrapper div[style] {border: 1px solid black;}',
+		contentEditable: false,
 	},
 };
 
@@ -97,8 +99,16 @@ function Datasheet(props: DatasheetProviderProps): React.ReactNode {
 	return (
 		<div className="datasheet-story">
 			<DatasheetProvider updateData={updateData} {...props}>
-				<DatasheetSheet />
+				<DatasheetChild {...props} />
 			</DatasheetProvider>
 		</div>
 	);
+}
+function DatasheetChild(props: DatasheetProviderProps & PropsWithChildren): React.ReactNode {
+	const datasheet = React.useContext(DatasheetContext);
+
+	React.useEffect(() => {
+		datasheet.chnageContentEditable(props.contentEditable || false);
+	}, [props.contentEditable]);
+	return <DatasheetSheet />;
 }

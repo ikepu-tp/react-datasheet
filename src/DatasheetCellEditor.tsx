@@ -8,7 +8,8 @@ export type DatasheetCellEditorProps = {
 	cellData?: DatasheetCellData;
 };
 const DatasheetCellEditor = React.memo(({ row, column, cellData }: DatasheetCellEditorProps): React.ReactNode => {
-	const { data, updateCellData, contentEditable } = React.useContext<DatasheetContextType>(DatasheetContext);
+	const { data, dataCurrent, updateCellData, contentEditable } =
+		React.useContext<DatasheetContextType>(DatasheetContext);
 
 	let initData: DatasheetCellData;
 	if (cellData) {
@@ -24,7 +25,7 @@ const DatasheetCellEditor = React.memo(({ row, column, cellData }: DatasheetCell
 
 	useEffect(() => {
 		if (!EditorRef.current) return;
-		EditorRef.current.textContent = `${data[row][column]}`;
+		EditorRef.current.textContent = `${dataCurrent[row][column]}`;
 	}, [data]);
 
 	function handleInput(e: React.FormEvent<HTMLElement>): void {

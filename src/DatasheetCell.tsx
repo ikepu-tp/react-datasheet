@@ -16,7 +16,8 @@ const DatasheetCell = React.memo(
 
 		const Component = component || theme.cellComponent || 'div';
 
-		const MousedownHandler = React.useRef<EventListenerOrEventListenerObject>((e: Event) => {
+		const MousedownHandler = React.useRef((e: MouseEvent) => {
+			if (e.button === 2) return;
 			e.preventDefault();
 			e.stopPropagation();
 			changeSelectedRange({
@@ -26,11 +27,13 @@ const DatasheetCell = React.memo(
 				endColumn: column,
 			});
 		});
-		const MousemoveHandler = React.useRef<EventListenerOrEventListenerObject>((e: Event) => {
+		const MousemoveHandler = React.useRef((e: MouseEvent) => {
+			if (e.button === 2) return;
 			e.preventDefault();
 			e.stopPropagation();
 		});
-		const MouseupHandler = React.useRef<EventListenerOrEventListenerObject>((e: Event) => {
+		const MouseupHandler = React.useRef((e: MouseEvent) => {
+			if (e.button === 2) return;
 			e.preventDefault();
 			e.stopPropagation();
 			changeSelectedRange({
@@ -57,15 +60,30 @@ const DatasheetCell = React.memo(
 			if (contentEditable) {
 				removeSelected();
 				ComponentRef.current.addEventListener('paste', PasteHandler.current);
-				ComponentRef.current.removeEventListener('mousedown', MousedownHandler.current);
-				ComponentRef.current.removeEventListener('mousemove', MousemoveHandler.current);
-				ComponentRef.current.removeEventListener('mouseup', MouseupHandler.current);
+				ComponentRef.current.removeEventListener(
+					'mousedown',
+					MousedownHandler.current as EventListenerOrEventListenerObject
+				);
+				ComponentRef.current.removeEventListener(
+					'mousemove',
+					MousemoveHandler.current as EventListenerOrEventListenerObject
+				);
+				ComponentRef.current.removeEventListener(
+					'mouseup',
+					MouseupHandler.current as EventListenerOrEventListenerObject
+				);
 				return;
 			}
 			ComponentRef.current.removeEventListener('paste', PasteHandler.current);
-			ComponentRef.current.addEventListener('mousedown', MousedownHandler.current);
-			ComponentRef.current.addEventListener('mousemove', MousemoveHandler.current);
-			ComponentRef.current.addEventListener('mouseup', MouseupHandler.current);
+			ComponentRef.current.addEventListener(
+				'mousedown',
+				MousedownHandler.current as EventListenerOrEventListenerObject
+			);
+			ComponentRef.current.addEventListener(
+				'mousemove',
+				MousemoveHandler.current as EventListenerOrEventListenerObject
+			);
+			ComponentRef.current.addEventListener('mouseup', MouseupHandler.current as EventListenerOrEventListenerObject);
 		}, [contentEditable]);
 
 		React.useEffect(() => {

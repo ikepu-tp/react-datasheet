@@ -155,6 +155,7 @@ export default function useDatasheet({
 
 	return {
 		data: Data,
+		dataCurrent: DataRef.current,
 		changeData,
 		updateCellData,
 		updateRowData,

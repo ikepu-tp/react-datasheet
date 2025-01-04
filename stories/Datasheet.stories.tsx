@@ -23,7 +23,9 @@ const defaultData: DatasheetData = [
 export const Normal: Story = {
 	args: {
 		data: defaultData,
-		theme: {},
+		theme: {
+			theme: 'table',
+		},
 		style: '.ikpeuTp-reactDatasheet__wrapper div[style] {border: 1px solid black;}',
 	},
 };

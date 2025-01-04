@@ -6,6 +6,7 @@ import {
 	DatasheetData,
 	DatasheetDifferenceData,
 	DatasheetHeaders,
+	DatasheetSelectedRange,
 	DatasheetTheme,
 	DatasheetUpdateDataHandler,
 } from './types';
@@ -31,6 +32,8 @@ export default function useDatasheet({
 	const [Headers, setHeaders] = React.useState<DatasheetHeaders>(headers || {});
 	const [Style, setStyle] = React.useState<string>(style || '');
 	const [ContentEditable, setContentEditable] = React.useState<boolean>(contentEditable || false);
+	const [SelectedRange, setSelectedRange] = React.useState<DatasheetSelectedRange>({});
+	const SelectedRangeRef = React.useRef<DatasheetSelectedRange>(SelectedRange);
 
 	function catchDataChange(
 		oldData: DatasheetData,
@@ -119,6 +122,34 @@ export default function useDatasheet({
 		setContentEditable(contentEditable);
 	}
 
+	/**
+	 * Change the selected range
+	 *
+	 * @param {DatasheetSelectedRange} selectedRange
+	 */
+	function changeSelectedRange(selectedRange: DatasheetSelectedRange | null): void {
+		if (selectedRange === null) {
+			SelectedRangeRef.current = {};
+			return setSelectedRange({ ...{} });
+		}
+		let selected = { ...SelectedRangeRef.current, ...selectedRange };
+
+		// 逆順の対応
+		if (
+			selected.startColumn !== undefined &&
+			selected.endColumn !== undefined &&
+			selected.startColumn > selected.endColumn
+		) {
+			[selected.startColumn, selected.endColumn] = [selected.endColumn, selected.startColumn];
+		}
+		if (selected.startRow !== undefined && selected.endRow !== undefined && selected.startRow > selected.endRow) {
+			[selected.startRow, selected.endRow] = [selected.endRow, selected.startRow];
+		}
+
+		SelectedRangeRef.current = selected;
+		setSelectedRange({ ...{}, ...SelectedRangeRef.current });
+	}
+
 	return {
 		data: DataRef.current,
 		changeData,
@@ -132,6 +163,8 @@ export default function useDatasheet({
 		changeStyle,
 		contentEditable: ContentEditable,
 		chnageContentEditable: changeContentEditable,
+		selectedRange: SelectedRange,
+		changeSelectedRange,
 	};
 }
 

@@ -32,3 +32,9 @@ export type DatasheetHeaders = {
 	rowHeaderComponent?: React.ReactNode;
 	columnHeaderComponent?: React.ReactNode;
 };
+export type DatasheetSelectedRange = {
+	startRow?: number;
+	endRow?: number;
+	startColumn?: number;
+	endColumn?: number;
+};

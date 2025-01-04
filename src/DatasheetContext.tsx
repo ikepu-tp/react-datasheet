@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatasheetCellData, DatasheetData, DatasheetHeaders, DatasheetTheme } from './types';
+import { DatasheetCellData, DatasheetData, DatasheetHeaders, DatasheetSelectedRange, DatasheetTheme } from './types';
 
 export type DatasheetContextType = {
 	data: DatasheetData;
@@ -14,6 +14,8 @@ export type DatasheetContextType = {
 	changeStyle: (style: string) => void;
 	contentEditable: boolean;
 	chnageContentEditable: (contentEditable: boolean) => void;
+	selectedRange: DatasheetSelectedRange;
+	changeSelectedRange: (selectedRange: DatasheetSelectedRange | null) => void;
 };
 const DatasheetContext = React.createContext<DatasheetContextType>({
 	data: [],
@@ -28,5 +30,7 @@ const DatasheetContext = React.createContext<DatasheetContextType>({
 	changeStyle: () => {},
 	contentEditable: false,
 	chnageContentEditable: () => {},
+	selectedRange: {},
+	changeSelectedRange: () => {},
 });
 export default DatasheetContext;

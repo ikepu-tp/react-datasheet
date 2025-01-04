@@ -8,11 +8,36 @@ export type DatasheetCellProps = {
 };
 const DatasheetCell = React.memo(
 	({ component, row, column, cellData }: DatasheetCellProps & DatasheetCellEditorProps): React.ReactNode => {
-		const { theme } = React.useContext<DatasheetContextType>(DatasheetContext);
+		const { theme, selectedRange, changeSelectedRange } = React.useContext<DatasheetContextType>(DatasheetContext);
 
-		const ComponentRef = React.useRef<HTMLDivElement | HTMLTableCellElement | any>(null);
+		const ComponentRef = React.useRef<HTMLDivElement | HTMLTableCellElement>(null);
 
 		const Component = component || theme.cellComponent || 'div';
+
+		React.useEffect(() => {
+			if (!ComponentRef.current) return;
+			ComponentRef.current.addEventListener('mousedown', (e: Event) => {
+				e.preventDefault();
+				e.stopPropagation();
+				changeSelectedRange({
+					startRow: row,
+					startColumn: column,
+				});
+			});
+			ComponentRef.current.addEventListener('mouseup', (e: Event) => {
+				e.preventDefault();
+				e.stopPropagation();
+				changeSelectedRange({
+					...selectedRange,
+					endRow: row,
+					endColumn: column,
+				});
+			});
+		}, []);
+
+		React.useEffect(() => {
+			console.log(selectedRange);
+		}, [selectedRange]);
 
 		return (
 			<Component ref={ComponentRef}>

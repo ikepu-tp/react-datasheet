@@ -1,6 +1,6 @@
 {
   "name": "@ikepu-tp/react-datasheet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "description": "This library is a datasheet headlessUI depends on React.",
   "types": "./dist/esm/index.d.ts",
